@@ -4,9 +4,12 @@ import com.Ruangfafa.common.Constants.LogMessageCons;
 import com.Ruangfafa.common.Constants.LogSourceCons;
 import com.Ruangfafa.common.Constants.DatabaseServiceJava;
 import com.Ruangfafa.common.ConfigLoader;
+import com.Ruangfafa.common.Enums.TaskType;
 
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.Ruangfafa.service.Log.log;
 
@@ -88,7 +91,6 @@ public class DatabaseService {
             String clientPassword = generateStrongPassword(14);
             try (PreparedStatement createUserStmt = conn.prepareStatement(String.format(DatabaseServiceJava.SQL_USER_CREATE, clientName, clientPassword))) {
                 createUserStmt.executeUpdate();
-                log( String.format(LogMessageCons.DB_CREATECLIENTLOGIN_SUCCESS, clientName, clientPassword),LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
             }
 
             // Step 3.2: 配置新用户权限
@@ -102,7 +104,7 @@ public class DatabaseService {
                 }
             }
 
-
+            log( String.format(LogMessageCons.DB_CREATECLIENTLOGIN_SUCCESS, clientName, clientPassword),LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
         } catch (SQLException e) {
             log(LogMessageCons.DB_CREATECLIENT_FAIL, e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
         }
@@ -157,6 +159,105 @@ public class DatabaseService {
         } catch (SQLException e) {
             log(String.format(LogMessageCons.DB_DELETEUSER_FAIL, id), e,
                     LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        }
+    }
+
+    public static List<Long> getFreeClient(Connection conn) {
+        List<Long> freeClients = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(DatabaseServiceJava.SQL_SERVER_CLIENT_SELECT);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                long clientId = rs.getLong(DatabaseServiceJava.SERVER_CLIENT_ID);             // Server.Client.id
+                String clientName = rs.getString(DatabaseServiceJava.SERVER_CLIENT_CLIENT);   // e.g., Client_0000001
+
+                // 构造 State 表查询语句
+                try (PreparedStatement stateStmt = conn.prepareStatement(String.format(DatabaseServiceJava.SQL_CLIENTSTATUS_STATUS_SELECT, clientName));
+                     ResultSet stateRs = stateStmt.executeQuery()) {
+                    if (stateRs.next()) {
+                        if (stateRs.getInt(DatabaseServiceJava.CLIENT_STATUS_VALUE) == 0) {
+                            freeClients.add(clientId); //使用 Server.Client 表中的真实 ID
+                        }
+                    }
+                } catch (SQLException e) {
+                    log(String.format(LogMessageCons.DB_SELECTSTATUS_FAIL, clientName, e.getMessage()), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return freeClients;
+    }
+
+    public static List<String> getTask(Connection conn, TaskType taskType) {
+        String taskTableName = String.format(DatabaseServiceJava.SERVER_TABLE, taskType.getTaskTable());  // 例如 Server.TaskProduct
+        String fetchTaskSQL = String.format(DatabaseServiceJava.SQL_TASKURL_SELECT, taskTableName);
+
+        List<String> urls = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(fetchTaskSQL);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                urls.add(rs.getString(DatabaseServiceJava.TASK_URL));
+            }
+        } catch (Exception e) {
+            log(String.format(LogMessageCons.DB_SELETCTASKURL_FAIL, taskTableName), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+            return null;
+        }
+
+        if (urls.isEmpty()) {
+            log(LogMessageCons.DB_SELETCTASKURL_WARN, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+            return new ArrayList<>();
+        }
+        return urls;
+    }
+
+    public static void setState(Connection conn, long id, String key, int value) {
+        try (PreparedStatement stmt = conn.prepareStatement(DatabaseServiceJava.SQL_SERVER_CLIENT_SELECT_BYID)) {
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String clientName = rs.getString(DatabaseServiceJava.SERVER_CLIENT_CLIENT);
+                try (PreparedStatement updateStmt = conn.prepareStatement(String.format(DatabaseServiceJava.SQL_CLIENTSTATUS_STATUS_UPDATE,clientName))) {
+                    updateStmt.setInt(1, value);
+                    updateStmt.setString(2, key);
+                    int affected = updateStmt.executeUpdate();
+                    if (affected > 0) {
+                        log(String.format(LogMessageCons.DB_UPDATECLIENTSTATUS_SUCCESS, clientName, key, value), LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+                    } else {
+                        log(String.format(LogMessageCons.DB_UPDATECLIENTSTATUS_WARN, clientName, key), LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+                    }
+                }
+            } else {
+                log(String.format(LogMessageCons.DB_UPDATECLIENTSTATUS_FAIL, id), LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+            }
+        } catch (Exception e) {
+            log(String.format(LogMessageCons.DB_UPDATECLIENTSTATUS_FAIL2, id, key, value), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        }
+    }
+
+    public static String getClientNameById(Connection conn, long id){
+        try (PreparedStatement stmt = conn.prepareStatement(DatabaseServiceJava.SQL_SERVER_CLIENT_SELECT_BYID)) {
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(DatabaseServiceJava.SERVER_CLIENT_CLIENT);
+            }
+        } catch (SQLException e) {
+            Log.log(String.format(LogMessageCons.DB_SELECTUSER_FAIL, id), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        }
+        return null;
+    }
+
+    public static void insertTask(Connection conn, String clientName, String url) {
+        String insertSQL = String.format(DatabaseServiceJava.SQL_TASKURL_INSERT, clientName);
+        try (PreparedStatement stmt = conn.prepareStatement(insertSQL)) {
+            stmt.setString(1, url);
+            stmt.executeUpdate();
+            Log.log(String.format(LogMessageCons.DB_INSTERTTASKURL_SUCCESS, url, clientName), LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        } catch (SQLException e) {
+            Log.log(String.format(LogMessageCons.DB_INSTERTTASKURL_FAIL, url, clientName), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
         }
     }
 }

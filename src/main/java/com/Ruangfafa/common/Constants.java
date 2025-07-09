@@ -28,12 +28,29 @@ public class Constants {
                 DB_DROPSCHEMA_SUCCESS = "✔️删除数据库成功 `%s`",
                 DB_DELETEUSER_SUCCESS = "✔️删除数据库用户成功 `%s`@'%%'",
                 DB_REMOVEUSERLIST_SUCCESS = "✔️已从 Server.Client 中删除 ID = %d 的记录",
-                DB_DELETEUSER_FAIL = "❌删除用户 ID [%d] 时发生错误";
+                DB_DELETEUSER_FAIL = "❌删除用户 ID [%d] 时发生错误",
+
+                DB_SELECTSTATUS_FAIL = "❌查询 %s.State 出错: %s",
+
+                DB_UPDATECLIENTSTATUS_SUCCESS = "✔️更新 %s.State: %s = %s",
+                DB_UPDATECLIENTSTATUS_WARN = "⚠️未找到 %s.State 中 key = '%s'",
+                DB_UPDATECLIENTSTATUS_FAIL = "❌未找到 id = %d 的 client",
+                DB_UPDATECLIENTSTATUS_FAIL2 = "❌setState 失败：id=%d, key=%s, value=%s",
+
+                DB_SELETCTASKURL_FAIL = "❌读取任务失败：%s",
+                DB_SELETCTASKURL_WARN = "⚠️没有待分配的任务",
+
+                DB_INSTERTTASKURL_SUCCESS = "✔️插入任务 [%s] 到 %s.Task",
+                DB_INSTERTTASKURL_FAIL = "❌插入任务失败 [%s] 到 %s.Task",
+
+                DB_ASSIGNTASK_SUCCESS = "✔️成功将 %d 条任务平均分配给 %d 个客户端",
+                DB_ASSIGNTASK_WARN = "⚠️ 没有可用的空闲客户端";
     }
 
     public static class LogSourceCons{
         public static final String
-                DATABASE_SERVICE = "com/Ruangfafa/service/DatabaseService";
+                DATABASE_SERVICE = "com/Ruangfafa/service/DatabaseService.java",
+                APPLICATION_CONTROLLER = "com/Ruangfafa/controller/ApplicationController.java";
     }
 
     public static class LogJava{
@@ -56,10 +73,21 @@ public class Constants {
                 SQL_SERVER_CLIENT_DELETE = "DELETE FROM Server.Client WHERE id = ?",
                 SQL_USERSCHEMA_DROP = "DROP DATABASE IF EXISTS `%s`",
                 SQL_USERS_DROP = "DROP USER IF EXISTS `%s`@'%%'",
+                SQL_SERVER_CLIENT_SELECT = "SELECT id, client FROM Server.Client",
+                SQL_CLIENTSTATUS_STATUS_SELECT = "SELECT value FROM %s.State WHERE `key` = 'state' LIMIT 1",
+                SQL_SERVER_CLIENT_SELECT_BYID = "SELECT client FROM Server.Client WHERE id = ?",
+                SQL_CLIENTSTATUS_STATUS_UPDATE = "UPDATE %s.State SET value = ? WHERE `key` = ?",
+                SQL_TASKURL_SELECT = "SELECT url FROM %s",
+                SQL_TASKURL_INSERT = "INSERT INTO %s.Task (url) VALUES (?)",
 
                 CLIENT_NAME_FORMAT = "Client_%07d",
                 USERTABLE_STATE_STATE = "state",
-                USERTABLE_STATE_LOCK = "lock";
+                USERTABLE_STATE_LOCK = "lock",
+                SERVER_CLIENT_ID = "id",
+                SERVER_CLIENT_CLIENT = "client",
+                CLIENT_STATUS_VALUE = "value",
+                TASK_URL = "url",
+                SERVER_TABLE = "Server.%s";
 
 
         public static final String[]
@@ -75,7 +103,7 @@ public class Constants {
                     "GRANT INSERT ON Server.Comment TO `%1$s`@'%%'"
                 },
                 DEFAULT_USER_TABLES = {
-                    "CREATE TABLE IF NOT EXISTS `%s`.Task (id INT PRIMARY KEY AUTO_INCREMENT, url TEXT)",
+                    "CREATE TABLE IF NOT EXISTS `%s`.Task (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, url VARCHAR(2048) NOT NULL)",
                     "CREATE TABLE IF NOT EXISTS `%s`.State (`key` CHAR(8) PRIMARY KEY, `value` TINYINT)"
                 };
     }
