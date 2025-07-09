@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/ConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/TM_VerticleTest.java" afterDir="false" />
+    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="[feature]完成数据库连接功能">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/CreateClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/ConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/Log.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Ruangfafa"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Ruangfafa/WebCrawler_Server_2.git",
+    "accountId": "097c0030-1153-4b40-bc0f-5a73258691f3"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 1
 }]]></component>
@@ -44,6 +50,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.App.executor": "Run",
+    "Application.CreateClientTest.executor": "Run",
     "Application.TM_VerticleTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -63,6 +70,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.Ruangfafa" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -78,11 +90,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1751959336800</updated>
-      <workItem from="1751959337965" duration="4939000" />
+      <workItem from="1751959337965" duration="21792000" />
     </task>
+    <task id="LOCAL-00001" summary="[feature]完成数据库连接功能">
+      <option name="closed" value="true" />
+      <created>1751964704657</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751964704657</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[feature]完成数据库连接功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feature]完成数据库连接功能" />
   </component>
 </project>

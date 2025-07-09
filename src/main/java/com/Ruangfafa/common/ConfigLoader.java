@@ -9,6 +9,7 @@ public class ConfigLoader {
     public static final String DB_URL;
     public static final String DB_USER;
     public static final String DB_PASSWORD;
+
     public static final Boolean LOG_PRINT;
 
     static {

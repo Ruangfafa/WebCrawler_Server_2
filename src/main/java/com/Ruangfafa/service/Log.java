@@ -21,4 +21,5 @@ public class Log {
             System.out.println(logMessage);
         }
     }
+    public static void log(String message, String source, boolean doPrint) {log(message, null, source, doPrint);}
 }
