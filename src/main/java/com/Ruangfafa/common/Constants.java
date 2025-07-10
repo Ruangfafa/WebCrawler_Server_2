@@ -44,7 +44,7 @@ public class Constants {
                 DB_INSTERTTASKURL_FAIL = "❌插入任务失败 [%s] 到 %s.Task",
 
                 DB_ASSIGNTASK_SUCCESS = "✔️成功将 %d 条任务平均分配给 %d 个客户端",
-                DB_ASSIGNTASK_WARN = "⚠️ 没有可用的空闲客户端";
+                DB_ASSIGNTASK_WARN = "⚠️没有可用的空闲客户端";
     }
 
     public static class LogSourceCons{
@@ -93,7 +93,7 @@ public class Constants {
         public static final String[]
                 DEFAULT_USER_PERMISSIONS = {
                     "GRANT SELECT, DELETE ON %1$s.Task TO `%1$s`@'%%'",
-                    "GRANT SELECT, DELETE ON %1$s.State TO `%1$s`@'%%'",
+                    "GRANT SELECT, UPDATE ON %1$s.State TO `%1$s`@'%%'",
 
                     "GRANT INSERT ON Server.Seller TO `%1$s`@'%%'",
                     "GRANT INSERT ON Server.SellerTag TO `%1$s`@'%%'",

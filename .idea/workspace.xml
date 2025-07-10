@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="[feature]完成数据库用户创建及删除功能">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Enums.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/controller/ApplicationController.java" afterDir="false" />
+    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="[feature]完成任务分配功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/CreateClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/CreateClientTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/TM_VerticleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/TM_VerticleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +88,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1751959336800</updated>
-      <workItem from="1751959337965" duration="30887000" />
+      <workItem from="1751959337965" duration="56869000" />
     </task>
     <task id="LOCAL-00001" summary="[feature]完成数据库连接功能">
       <option name="closed" value="true" />
@@ -110,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752038009903</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="[feature]完成任务分配功能">
+      <option name="closed" value="true" />
+      <created>1752047034556</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1752047034556</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,7 +123,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[feature]完成数据库连接功能" />
     <MESSAGE value="[feature]完成数据库用户创建及删除功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feature]完成数据库用户创建及删除功能" />
+    <MESSAGE value="[feature]完成任务分配功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feature]完成任务分配功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
