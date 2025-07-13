@@ -44,7 +44,10 @@ public class Constants {
                 DB_INSTERTTASKURL_FAIL = "❌插入任务失败 [%s] 到 %s.Task",
 
                 DB_ASSIGNTASK_SUCCESS = "✔️成功将 %d 条任务平均分配给 %d 个客户端",
-                DB_ASSIGNTASK_WARN = "⚠️没有可用的空闲客户端";
+                DB_ASSIGNTASK_WARN = "⚠️没有可用的空闲客户端",
+
+                DB_LOADTASK_SUCCESS = "✔️成功加载任务列表并插入数据",
+                DB_LOADTASK_FAIL = "❌加载任务列表时插入数据失败";
     }
 
     public static class LogSourceCons{
@@ -79,16 +82,17 @@ public class Constants {
                 SQL_CLIENTSTATUS_STATUS_UPDATE = "UPDATE %s.State SET value = ? WHERE `key` = ?",
                 SQL_TASKURL_SELECT = "SELECT url FROM %s",
                 SQL_TASKURL_INSERT = "INSERT INTO %s.Task (url) VALUES (?)",
+                SQL_GETSELLERTAG_SELECT = "SELECT pageType, sellerId, cpId FROM Server.SellerTag",
+                SQL_LOADTASK_INSERT = "INSERT INTO %s (url) VALUES (?)",
 
                 CLIENT_NAME_FORMAT = "Client_%07d",
-                USERTABLE_STATE_STATE = "state",
-                USERTABLE_STATE_LOCK = "lock",
                 SERVER_CLIENT_ID = "id",
                 SERVER_CLIENT_CLIENT = "client",
                 CLIENT_STATUS_VALUE = "value",
                 TASK_URL = "url",
-                SERVER_TABLE = "Server.%s";
-
+                SERVER_TABLE = "Server.%s",
+                USERTABLE_STATE_STATE = "state",
+                USERTABLE_STATE_LOCK = "lock";
 
         public static final String[]
                 DEFAULT_USER_PERMISSIONS = {
@@ -106,5 +110,19 @@ public class Constants {
                     "CREATE TABLE IF NOT EXISTS `%s`.Task (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, url VARCHAR(2048) NOT NULL)",
                     "CREATE TABLE IF NOT EXISTS `%s`.State (`key` CHAR(8) PRIMARY KEY, `value` TINYINT)"
                 };
+    }
+
+    public static class ApplicationControllerJava{
+        public static final String
+                USERTABLE_STATE_STATE = "state",
+                USERTABLE_STATE_LOCK = "lock",
+                BLANK = "",
+                CP_SEP = "_:_",
+                CP_TYPE_A = "a",
+                CP_TYPE_C = "c",
+                CP_TYPE_P = "p",
+                URL_A = "https://%s.tmall.com/search.htm",
+                URL_C = "https://%s.tmall.com/category-%s.htm",
+                URL_P = "https://%s.tmall.com/search.htm?pv=%s";
     }
 }

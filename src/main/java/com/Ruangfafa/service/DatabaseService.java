@@ -5,6 +5,8 @@ import com.Ruangfafa.common.Constants.LogSourceCons;
 import com.Ruangfafa.common.Constants.DatabaseServiceJava;
 import com.Ruangfafa.common.ConfigLoader;
 import com.Ruangfafa.common.Enums.TaskType;
+import com.Ruangfafa.common.Enums.TaskTable;
+import com.Ruangfafa.model.TaskTag;
 
 import java.security.SecureRandom;
 import java.sql.*;
@@ -250,6 +252,18 @@ public class DatabaseService {
         return null;
     }
 
+    public static void loadTask(Connection conn, TaskTable taskTable, String url){
+        String tableName = taskTable.getTaskTableStr();
+        String sql = String.format(DatabaseServiceJava.SQL_LOADTASK_INSERT, tableName);
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, url);
+            stmt.executeUpdate();
+            Log.log(LogMessageCons.DB_LOADTASK_SUCCESS, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        } catch (SQLException e) {
+            Log.log(LogMessageCons.DB_LOADTASK_FAIL, e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
+        }
+    }
+
     public static void insertTask(Connection conn, String clientName, String url) {
         String insertSQL = String.format(DatabaseServiceJava.SQL_TASKURL_INSERT, clientName);
         try (PreparedStatement stmt = conn.prepareStatement(insertSQL)) {
@@ -260,4 +274,24 @@ public class DatabaseService {
             Log.log(String.format(LogMessageCons.DB_INSTERTTASKURL_FAIL, url, clientName), e, LogSourceCons.DATABASE_SERVICE, ConfigLoader.LOG_PRINT);
         }
     }
+
+    public static List<TaskTag> getSellerTag(Connection conn) {
+        List<TaskTag> SellerTagList = new ArrayList<>();
+        String sql = DatabaseServiceJava.SQL_GETSELLERTAG_SELECT;
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String pageType = rs.getString("pageType");
+                String sellerId = rs.getString("sellerId");
+                String cpId = rs.getString("cpId");
+
+                TaskTag tag = new TaskTag(pageType, sellerId, cpId);
+                SellerTagList.add(tag);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // 生产环境建议记录日志而不是直接打印
+        }
+        return SellerTagList;
+    }
+
 }

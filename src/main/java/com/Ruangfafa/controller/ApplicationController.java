@@ -3,13 +3,17 @@ package com.Ruangfafa.controller;
 import com.Ruangfafa.common.ConfigLoader;
 import com.Ruangfafa.common.Constants.LogMessageCons;
 import com.Ruangfafa.common.Constants.LogSourceCons;
-import com.Ruangfafa.common.Constants.DatabaseServiceJava;
+import com.Ruangfafa.common.Constants.ApplicationControllerJava;
+import com.Ruangfafa.common.Enums.TaskTable;
 import com.Ruangfafa.common.Enums.TaskType;
+import com.Ruangfafa.common.Enums.TaskTagPageType;
+import com.Ruangfafa.model.TaskTag;
 import com.Ruangfafa.service.DatabaseService;
 
 import java.sql.Connection;
 import java.util.List;
 
+import static com.Ruangfafa.service.DatabaseService.loadTask;
 import static com.Ruangfafa.service.Log.log;
 
 public class ApplicationController {
@@ -22,7 +26,7 @@ public class ApplicationController {
 
         // 1. 锁住所有 client
         for (long id : clients) {
-            DatabaseService.setState(conn, id, DatabaseServiceJava.USERTABLE_STATE_LOCK, 1);
+            DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_LOCK, 1);
         }
 
         // 2. 读取 Server 中任务表
@@ -46,15 +50,49 @@ public class ApplicationController {
 
         // 4. 设置所有 client 的 state = 对应的 taskType name
         for (long id : clients) {
-            DatabaseService.setState(conn, id, DatabaseServiceJava.USERTABLE_STATE_STATE, taskType.getTaskInt());
+            DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_STATE, taskType.getTaskInt());
         }
 
         // 5. 解锁所有 client
         for (long id : clients) {
-            DatabaseService.setState(conn, id, DatabaseServiceJava.USERTABLE_STATE_LOCK, 0);
+            DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_LOCK, 0);
         }
 
         log(String.format(LogMessageCons.DB_ASSIGNTASK_SUCCESS, urls.size(), clients.size()), LogSourceCons.APPLICATION_CONTROLLER, ConfigLoader.LOG_PRINT);
     }
 
+    public static void loadTaskTag(Connection conn) {
+        List<TaskTag> sellerTagList = DatabaseService.getSellerTag(conn);
+        for (TaskTag sellerTag : sellerTagList) {
+            String[] taskTag = sellerTag.getTaskTag();
+            String cpType = ApplicationControllerJava.BLANK;
+            String cpId = ApplicationControllerJava.BLANK;
+            String rawCp = taskTag[2];
+            String[] parts = rawCp.split(ApplicationControllerJava.CP_SEP, 2);
+            String url = ApplicationControllerJava.BLANK;
+            if (parts.length == 2) {
+                cpType = parts[0];
+                cpId = parts[1];
+            }
+            if (taskTag[0].equalsIgnoreCase(TaskTagPageType.TM.getPageTypeStr())) {
+                switch (cpType) {
+                    case ApplicationControllerJava.CP_TYPE_A: {
+                        url = String.format(ApplicationControllerJava.URL_A, taskTag[1]);
+                        loadTask(conn, TaskTable.TAG, url);
+                    }
+                    break;
+                    case ApplicationControllerJava.CP_TYPE_C: {
+                        url = String.format(ApplicationControllerJava.URL_C, taskTag[1], cpId);
+                        loadTask(conn, TaskTable.TAG, url);
+                    }
+                    break;
+                    case ApplicationControllerJava.CP_TYPE_P: {
+                        url = String.format(ApplicationControllerJava.URL_P, taskTag[1], cpId);
+                        loadTask(conn, TaskTable.TAG, url);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 }
