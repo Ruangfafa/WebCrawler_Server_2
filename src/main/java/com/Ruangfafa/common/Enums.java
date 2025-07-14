@@ -52,4 +52,13 @@ public class Enums {
         }
     }
 
+    public static enum TaskProductPageType{
+        TM;
+        public String getPageTypeStr() {
+            return  switch (this) {
+                case TM -> "TM";
+            };
+        }
+    }
+
 }

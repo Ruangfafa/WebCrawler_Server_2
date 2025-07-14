@@ -6,6 +6,7 @@ import com.Ruangfafa.common.Constants.DatabaseServiceJava;
 import com.Ruangfafa.common.ConfigLoader;
 import com.Ruangfafa.common.Enums.TaskType;
 import com.Ruangfafa.common.Enums.TaskTable;
+import com.Ruangfafa.model.TaskProduct;
 import com.Ruangfafa.model.TaskTag;
 
 import java.security.SecureRandom;
@@ -276,22 +277,37 @@ public class DatabaseService {
     }
 
     public static List<TaskTag> getSellerTag(Connection conn) {
-        List<TaskTag> SellerTagList = new ArrayList<>();
+        List<TaskTag> sellerTagList = new ArrayList<>();
         String sql = DatabaseServiceJava.SQL_GETSELLERTAG_SELECT;
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                String pageType = rs.getString("pageType");
-                String sellerId = rs.getString("sellerId");
-                String cpId = rs.getString("cpId");
+                String pageType = rs.getString(DatabaseServiceJava.RS_GET_PAGETYPE);
+                String sellerId = rs.getString(DatabaseServiceJava.RS_GET_SELLERID);
+                String cpId = rs.getString(DatabaseServiceJava.RS_GET_CPID);
 
                 TaskTag tag = new TaskTag(pageType, sellerId, cpId);
-                SellerTagList.add(tag);
+                sellerTagList.add(tag);
             }
         } catch (SQLException e) {
-            e.printStackTrace();  // 生产环境建议记录日志而不是直接打印
         }
-        return SellerTagList;
+        return sellerTagList;
     }
 
+    public static List<TaskProduct> getProduct(Connection conn) {
+        List<TaskProduct> productList = new ArrayList<>();
+        String sql = DatabaseServiceJava.SQL_GETPRODUCT_SELECT;
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String pageType = rs.getString(DatabaseServiceJava.RS_GET_PAGETYPE);
+                String productId = rs.getString(DatabaseServiceJava.RS_GET_PRODUCTID);
+                TaskProduct product = new TaskProduct(pageType, productId);
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+        }
+        return productList;
+    }
 }
+

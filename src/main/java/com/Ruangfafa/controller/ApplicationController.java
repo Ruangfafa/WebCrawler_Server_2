@@ -4,9 +4,8 @@ import com.Ruangfafa.common.ConfigLoader;
 import com.Ruangfafa.common.Constants.LogMessageCons;
 import com.Ruangfafa.common.Constants.LogSourceCons;
 import com.Ruangfafa.common.Constants.ApplicationControllerJava;
-import com.Ruangfafa.common.Enums.TaskTable;
-import com.Ruangfafa.common.Enums.TaskType;
-import com.Ruangfafa.common.Enums.TaskTagPageType;
+import com.Ruangfafa.common.Enums.*;
+import com.Ruangfafa.model.TaskProduct;
 import com.Ruangfafa.model.TaskTag;
 import com.Ruangfafa.service.DatabaseService;
 
@@ -68,30 +67,42 @@ public class ApplicationController {
             String cpType = ApplicationControllerJava.BLANK;
             String cpId = ApplicationControllerJava.BLANK;
             String rawCp = taskTag[2];
-            String[] parts = rawCp.split(ApplicationControllerJava.CP_SEP, 2);
-            String url = ApplicationControllerJava.BLANK;
+            String[] parts = rawCp.split(ApplicationControllerJava.TM_CP_SEP, 2);
+            String url;
             if (parts.length == 2) {
                 cpType = parts[0];
                 cpId = parts[1];
             }
             if (taskTag[0].equalsIgnoreCase(TaskTagPageType.TM.getPageTypeStr())) {
                 switch (cpType) {
-                    case ApplicationControllerJava.CP_TYPE_A: {
-                        url = String.format(ApplicationControllerJava.URL_A, taskTag[1]);
+                    case ApplicationControllerJava.TM_CP_TYPE_A: {
+                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_A, taskTag[1]);
                         loadTask(conn, TaskTable.TAG, url);
                     }
                     break;
-                    case ApplicationControllerJava.CP_TYPE_C: {
-                        url = String.format(ApplicationControllerJava.URL_C, taskTag[1], cpId);
+                    case ApplicationControllerJava.TM_CP_TYPE_C: {
+                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_C, taskTag[1], cpId);
                         loadTask(conn, TaskTable.TAG, url);
                     }
                     break;
-                    case ApplicationControllerJava.CP_TYPE_P: {
-                        url = String.format(ApplicationControllerJava.URL_P, taskTag[1], cpId);
+                    case ApplicationControllerJava.TM_CP_TYPE_P: {
+                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_P, taskTag[1], cpId);
                         loadTask(conn, TaskTable.TAG, url);
                     }
                     break;
                 }
+            }
+        }
+    }
+
+    public static void loadTaskProduct(Connection conn) {
+        List<TaskProduct> productTagList = DatabaseService.getProduct(conn);
+        for (TaskProduct productTag : productTagList) {
+            String[] taskProduct = productTag.getTaskProduct();
+            String url = ApplicationControllerJava.BLANK;
+            if (taskProduct[0].equalsIgnoreCase(TaskProductPageType.TM.getPageTypeStr())) {
+                url = String.format(ApplicationControllerJava.TM_TASKPRODUCT_URL, taskProduct[1]);
+                loadTask(conn, TaskTable.PRODUCT, url);
             }
         }
     }

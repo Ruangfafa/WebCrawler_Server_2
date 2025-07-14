@@ -84,6 +84,7 @@ public class Constants {
                 SQL_TASKURL_INSERT = "INSERT INTO %s.Task (url) VALUES (?)",
                 SQL_GETSELLERTAG_SELECT = "SELECT pageType, sellerId, cpId FROM Server.SellerTag",
                 SQL_LOADTASK_INSERT = "INSERT INTO %s (url) VALUES (?)",
+                SQL_GETPRODUCT_SELECT = "SELECT DISTINCT pageType, productId FROM Server.ProductTag",
 
                 CLIENT_NAME_FORMAT = "Client_%07d",
                 SERVER_CLIENT_ID = "id",
@@ -92,7 +93,11 @@ public class Constants {
                 TASK_URL = "url",
                 SERVER_TABLE = "Server.%s",
                 USERTABLE_STATE_STATE = "state",
-                USERTABLE_STATE_LOCK = "lock";
+                USERTABLE_STATE_LOCK = "lock",
+                RS_GET_PAGETYPE = "pageType",
+                RS_GET_SELLERID = "sellerId",
+                RS_GET_CPID = "cpId",
+                RS_GET_PRODUCTID = "productId";
 
         public static final String[]
                 DEFAULT_USER_PERMISSIONS = {
@@ -117,12 +122,13 @@ public class Constants {
                 USERTABLE_STATE_STATE = "state",
                 USERTABLE_STATE_LOCK = "lock",
                 BLANK = "",
-                CP_SEP = "_:_",
-                CP_TYPE_A = "a",
-                CP_TYPE_C = "c",
-                CP_TYPE_P = "p",
-                URL_A = "https://%s.tmall.com/search.htm",
-                URL_C = "https://%s.tmall.com/category-%s.htm",
-                URL_P = "https://%s.tmall.com/search.htm?pv=%s";
+                TM_CP_SEP = "_:_",
+                TM_CP_TYPE_A = "a",
+                TM_CP_TYPE_C = "c",
+                TM_CP_TYPE_P = "p",
+                TM_TASKTAG_URL_A = "https://%s.tmall.com/search.htm",
+                TM_TASKTAG_URL_C = "https://%s.tmall.com/category-%s.htm",
+                TM_TASKTAG_URL_P = "https://%s.tmall.com/search.htm?pv=%s",
+                TM_TASKPRODUCT_URL = "https://detail.tmall.com/item.htm?id=%s";
     }
 }

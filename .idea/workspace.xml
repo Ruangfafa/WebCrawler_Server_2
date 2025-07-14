@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="[feature]完成功能：从SellerTag获取所需要爬的TaskTag">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/model/TaskProduct.java" afterDir="false" />
+    <list default="true" id="08e34f67-dce6-40d4-985c-8ee7f215b139" name="Changes" comment="[bug]TaskTag model的一个小错误">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/common/Enums.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/controller/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/controller/ApplicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/model/TaskProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/model/TaskProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Ruangfafa/service/DatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/TM_VerticleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/Ruangfafa/TM_VerticleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1751959336800</updated>
       <workItem from="1751959337965" duration="75100000" />
-      <workItem from="1752368419929" duration="16940000" />
+      <workItem from="1752368419929" duration="20179000" />
+      <workItem from="1752453265440" duration="28107000" />
     </task>
     <task id="LOCAL-00001" summary="[feature]完成数据库连接功能">
       <option name="closed" value="true" />
@@ -129,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752411170140</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[bug]TaskTag model的一个小错误">
+      <option name="closed" value="true" />
+      <created>1752411380620</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1752411380620</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +156,7 @@
     <MESSAGE value="[feature]完成任务分配功能" />
     <MESSAGE value="[bug]分发Client权限错误修复" />
     <MESSAGE value="[feature]完成功能：从SellerTag获取所需要爬的TaskTag" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feature]完成功能：从SellerTag获取所需要爬的TaskTag" />
+    <MESSAGE value="[bug]TaskTag model的一个小错误" />
+    <option name="LAST_COMMIT_MESSAGE" value="[bug]TaskTag model的一个小错误" />
   </component>
 </project>
