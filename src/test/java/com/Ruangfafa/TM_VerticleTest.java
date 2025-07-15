@@ -16,7 +16,8 @@ public class TM_VerticleTest {
         //ApplicationController.loadTaskTag(conn);
         //ApplicationController.assignTask(conn, TaskType.PRODUCTTAG);
         //ApplicationController.loadTaskProduct(conn);
-        ApplicationController.assignTask(conn, TaskType.PRODUCT);
+        //ApplicationController.assignTask(conn, TaskType.PRODUCT);
+        ApplicationController.assignTask(conn, TaskType.COMMENT);
 
     }
 

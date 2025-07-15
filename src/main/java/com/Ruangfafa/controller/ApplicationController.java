@@ -22,17 +22,17 @@ public class ApplicationController {
             log(LogMessageCons.DB_ASSIGNTASK_WARN, LogSourceCons.APPLICATION_CONTROLLER, ConfigLoader.LOG_PRINT);
             return;
         }
-
         // 1. 锁住所有 client
         for (long id : clients) {
             DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_LOCK, 1);
         }
-
-        // 2. 读取 Server 中任务表
+        // 2. 设置所有 client 的 state = 对应的 taskType name
+        for (long id : clients) {
+            DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_STATE, taskType.getTaskInt());
+        }
+        // 3. 读取 Server 中任务表
         List<String> urls = DatabaseService.getTask(conn, taskType);
-
-
-        // 3. 平均分配任务
+        // 4. 平均分配任务
         int clientCount = clients.size();
         int index = 0;
         for (String url : urls) {
@@ -46,17 +46,10 @@ public class ApplicationController {
             DatabaseService.insertTask(conn, clientName, url);
             index++;
         }
-
-        // 4. 设置所有 client 的 state = 对应的 taskType name
-        for (long id : clients) {
-            DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_STATE, taskType.getTaskInt());
-        }
-
         // 5. 解锁所有 client
         for (long id : clients) {
             DatabaseService.setState(conn, id, ApplicationControllerJava.USERTABLE_STATE_LOCK, 0);
         }
-
         log(String.format(LogMessageCons.DB_ASSIGNTASK_SUCCESS, urls.size(), clients.size()), LogSourceCons.APPLICATION_CONTROLLER, ConfigLoader.LOG_PRINT);
     }
 
