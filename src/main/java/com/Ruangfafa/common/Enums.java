@@ -8,10 +8,10 @@ public class Enums {
         PRODUCT;
         public String getTaskTableStr(){
             return switch (this) {
-                case  SELLER -> "Server.TaskSeller";
-                case  TAG -> "Server.TaskTag";
-                case  RANKING -> "Server.TaskRanking";
-                case  PRODUCT -> "Server.TaskProduct";
+                case  SELLER -> "Server.task_seller";
+                case  TAG -> "Server.task_tag";
+                case  RANKING -> "Server.task_ranking";
+                case  PRODUCT -> "Server.task_product";
             };
         }
     }
@@ -25,10 +25,10 @@ public class Enums {
         COMMENT;
         public String getTaskTable() {
             return switch (this) {
-                case SELLER,SELLERTAG -> "TaskSeller";
-                case PRODUCTTAG -> "TaskTag";
-                case PRODUCTRANK -> "TaskRanking";
-                case PRODUCT,COMMENT -> "TaskProduct";
+                case SELLER,SELLERTAG -> "task_seller";
+                case PRODUCTTAG -> "task_tag";
+                case PRODUCTRANK -> "task_ranking";
+                case PRODUCT,COMMENT -> "task_product";
             };
         }
         public int getTaskInt() {

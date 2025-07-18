@@ -67,24 +67,24 @@ public class Constants {
         public static final String
                 PASSWORDCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+",
 
-                SQL_SERVER_CLIENT_NEWID = "INSERT INTO Server.Client () VALUES ()",
-                SQL_SERVER_CLIENT_UPDATE = "UPDATE Server.Client SET client = ? WHERE id = ?",
+                SQL_SERVER_CLIENT_NEWID = "INSERT INTO Server.client () VALUES ()",
+                SQL_SERVER_CLIENT_UPDATE = "UPDATE Server.client SET client = ? WHERE id = ?",
                 SQL_USER_CREATE = "CREATE USER `%s`@'%%' IDENTIFIED BY '%s'",
                 SQL_USERSCHEMA_CREATE = "CREATE DATABASE IF NOT EXISTS `%s`",
-                SQL_USERTABLE_INIT = "INSERT IGNORE INTO `%s`.State (`key`, `value`) VALUES (?, ?)",
-                SQL_CLIENT_NAME_BY_ID = "SELECT client FROM Server.Client WHERE id = ?",
-                SQL_SERVER_CLIENT_DELETE = "DELETE FROM Server.Client WHERE id = ?",
+                SQL_USERTABLE_INIT = "INSERT IGNORE INTO `%s`.state (`key`, `value`) VALUES (?, ?)",
+                SQL_CLIENT_NAME_BY_ID = "SELECT client FROM Server.client WHERE id = ?",
+                SQL_SERVER_CLIENT_DELETE = "DELETE FROM Server.client WHERE id = ?",
                 SQL_USERSCHEMA_DROP = "DROP DATABASE IF EXISTS `%s`",
                 SQL_USERS_DROP = "DROP USER IF EXISTS `%s`@'%%'",
-                SQL_SERVER_CLIENT_SELECT = "SELECT id, client FROM Server.Client",
-                SQL_CLIENTSTATUS_STATUS_SELECT = "SELECT value FROM %s.State WHERE `key` = 'state' LIMIT 1",
-                SQL_SERVER_CLIENT_SELECT_BYID = "SELECT client FROM Server.Client WHERE id = ?",
-                SQL_CLIENTSTATUS_STATUS_UPDATE = "UPDATE %s.State SET value = ? WHERE `key` = ?",
+                SQL_SERVER_CLIENT_SELECT = "SELECT id, client FROM Server.client",
+                SQL_CLIENTSTATUS_STATUS_SELECT = "SELECT value FROM %s.state WHERE `key` = 'state' LIMIT 1",
+                SQL_SERVER_CLIENT_SELECT_BYID = "SELECT client FROM Server.client WHERE id = ?",
+                SQL_CLIENTSTATUS_STATUS_UPDATE = "UPDATE %s.state SET value = ? WHERE `key` = ?",
                 SQL_TASKURL_SELECT = "SELECT url FROM %s",
-                SQL_TASKURL_INSERT = "INSERT INTO %s.Task (url) VALUES (?)",
-                SQL_GETSELLERTAG_SELECT = "SELECT pageType, sellerId, cpId FROM Server.SellerTag",
+                SQL_TASKURL_INSERT = "INSERT INTO %s.task (url) VALUES (?)",
+                SQL_GETSELLERTAG_SELECT = "SELECT page_type, seller_id, cp_id FROM Server.seller_tag",
                 SQL_LOADTASK_INSERT = "INSERT INTO %s (url) VALUES (?)",
-                SQL_GETPRODUCT_SELECT = "SELECT DISTINCT pageType, productId FROM Server.ProductTag",
+                SQL_GETPRODUCT_SELECT = "SELECT DISTINCT page_type, product_id FROM Server.product_tag",
 
                 CLIENT_NAME_FORMAT = "Client_%07d",
                 SERVER_CLIENT_ID = "id",
@@ -94,26 +94,28 @@ public class Constants {
                 SERVER_TABLE = "Server.%s",
                 USERTABLE_STATE_STATE = "state",
                 USERTABLE_STATE_LOCK = "lock",
-                RS_GET_PAGETYPE = "pageType",
-                RS_GET_SELLERID = "sellerId",
-                RS_GET_CPID = "cpId",
-                RS_GET_PRODUCTID = "productId";
+                RS_GET_PAGETYPE = "page_type",
+                RS_GET_SELLERID = "seller_id",
+                RS_GET_CPID = "cp_id",
+                RS_GET_PRODUCTID = "product_id";
 
         public static final String[]
                 DEFAULT_USER_PERMISSIONS = {
-                    "GRANT SELECT, DELETE ON %1$s.Task TO `%1$s`@'%%'",
-                    "GRANT SELECT, UPDATE ON %1$s.State TO `%1$s`@'%%'",
+                    "GRANT SELECT, DELETE ON %1$s.task TO `%1$s`@'%%'",
+                    "GRANT SELECT, UPDATE ON %1$s.state TO `%1$s`@'%%'",
 
-                    "GRANT INSERT ON Server.Seller TO `%1$s`@'%%'",
-                    "GRANT INSERT ON Server.SellerTag TO `%1$s`@'%%'",
-                    "GRANT INSERT ON Server.ProductTag TO `%1$s`@'%%'",
-                    "GRANT INSERT ON Server.ProductRank TO `%1$s`@'%%'",
-                    "GRANT INSERT ON Server.Product TO `%1$s`@'%%'",
-                    "GRANT INSERT ON Server.Comment TO `%1$s`@'%%'"
+                    "GRANT SELECT ON Server.seller TO `%1$s`@'%%'",
+
+                    "GRANT INSERT ON Server.seller TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.seller_tag TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.product_tag TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.product_rank TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.product TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.comment TO `%1$s`@'%%'"
                 },
                 DEFAULT_USER_TABLES = {
-                    "CREATE TABLE IF NOT EXISTS `%s`.Task (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, url VARCHAR(2048) NOT NULL)",
-                    "CREATE TABLE IF NOT EXISTS `%s`.State (`key` CHAR(8) PRIMARY KEY, `value` TINYINT)"
+                    "CREATE TABLE IF NOT EXISTS `%s`.task (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, url VARCHAR(2048) NOT NULL)",
+                    "CREATE TABLE IF NOT EXISTS `%s`.state (`key` CHAR(8) PRIMARY KEY, `value` TINYINT)"
                 };
     }
 
