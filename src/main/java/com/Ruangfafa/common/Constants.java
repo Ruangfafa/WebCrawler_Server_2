@@ -82,7 +82,7 @@ public class Constants {
                 SQL_CLIENTSTATUS_STATUS_UPDATE = "UPDATE %s.state SET value = ? WHERE `key` = ?",
                 SQL_TASKURL_SELECT = "SELECT url FROM %s",
                 SQL_TASKURL_INSERT = "INSERT INTO %s.task (url) VALUES (?)",
-                SQL_GETSELLERTAG_SELECT = "SELECT page_type, seller_id, cp_id FROM Server.seller_tag",
+                SQL_GETSELLERTAG_SELECT = "SELECT page_type, seller_id, c_id, p_id FROM Server.seller_tag",
                 SQL_LOADTASK_INSERT = "INSERT INTO %s (url) VALUES (?)",
                 SQL_GETPRODUCT_SELECT = "SELECT DISTINCT page_type, product_id FROM Server.product_tag",
 
@@ -96,7 +96,8 @@ public class Constants {
                 USERTABLE_STATE_LOCK = "lock",
                 RS_GET_PAGETYPE = "page_type",
                 RS_GET_SELLERID = "seller_id",
-                RS_GET_CPID = "cp_id",
+                RS_GET_CID = "c_id",
+                RS_GET_PID = "p_id",
                 RS_GET_PRODUCTID = "product_id";
 
         public static final String[]
@@ -121,13 +122,11 @@ public class Constants {
 
     public static class ApplicationControllerJava{
         public static final String
+                BLANK = "",
                 USERTABLE_STATE_STATE = "state",
                 USERTABLE_STATE_LOCK = "lock",
-                BLANK = "",
-                TM_CP_SEP = "_:_",
-                TM_CP_TYPE_A = "a",
-                TM_CP_TYPE_C = "c",
-                TM_CP_TYPE_P = "p",
+                TM_CP_TYPE_A = "all",
+                TM_CP_NONE = null,
                 TM_TASKTAG_URL_A = "https://%s.tmall.com/search.htm",
                 TM_TASKTAG_URL_C = "https://%s.tmall.com/category-%s.htm",
                 TM_TASKTAG_URL_P = "https://%s.tmall.com/search.htm?pv=%s",

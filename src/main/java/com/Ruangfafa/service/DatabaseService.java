@@ -284,9 +284,10 @@ public class DatabaseService {
             while (rs.next()) {
                 String pageType = rs.getString(DatabaseServiceJava.RS_GET_PAGETYPE);
                 String sellerId = rs.getString(DatabaseServiceJava.RS_GET_SELLERID);
-                String cpId = rs.getString(DatabaseServiceJava.RS_GET_CPID);
+                String cId = rs.getString(DatabaseServiceJava.RS_GET_CID);
+                String pId = rs.getString(DatabaseServiceJava.RS_GET_PID);
 
-                TaskTag tag = new TaskTag(pageType, sellerId, cpId);
+                TaskTag tag = new TaskTag(pageType, sellerId, cId, pId);
                 sellerTagList.add(tag);
             }
         } catch (SQLException e) {

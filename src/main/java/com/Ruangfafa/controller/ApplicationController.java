@@ -57,33 +57,22 @@ public class ApplicationController {
         List<TaskTag> sellerTagList = DatabaseService.getSellerTag(conn);
         for (TaskTag sellerTag : sellerTagList) {
             String[] taskTag = sellerTag.getTaskTag();
-            String cpType = ApplicationControllerJava.BLANK;
-            String cpId = ApplicationControllerJava.BLANK;
-            String rawCp = taskTag[2];
-            String[] parts = rawCp.split(ApplicationControllerJava.TM_CP_SEP, 2);
+            String c = taskTag[2];
+            String p = taskTag[3];
             String url;
-            if (parts.length == 2) {
-                cpType = parts[0];
-                cpId = parts[1];
+            if (c != null && p != null &&
+                    (c.equals(ApplicationControllerJava.TM_CP_TYPE_A) || p.equals(ApplicationControllerJava.TM_CP_TYPE_A))) {
+
+                url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_A, taskTag[1]);
+                loadTask(conn, TaskTable.TAG, url);
             }
-            if (taskTag[0].equalsIgnoreCase(TaskTagPageType.TM.getPageTypeStr())) {
-                switch (cpType) {
-                    case ApplicationControllerJava.TM_CP_TYPE_A: {
-                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_A, taskTag[1]);
-                        loadTask(conn, TaskTable.TAG, url);
-                    }
-                    break;
-                    case ApplicationControllerJava.TM_CP_TYPE_C: {
-                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_C, taskTag[1], cpId);
-                        loadTask(conn, TaskTable.TAG, url);
-                    }
-                    break;
-                    case ApplicationControllerJava.TM_CP_TYPE_P: {
-                        url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_P, taskTag[1], cpId);
-                        loadTask(conn, TaskTable.TAG, url);
-                    }
-                    break;
-                }
+            else if (c == null) {
+                url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_P, taskTag[1], p);
+                loadTask(conn, TaskTable.TAG, url);
+            }
+            else if (p == null) {
+                url = String.format(ApplicationControllerJava.TM_TASKTAG_URL_C, taskTag[1], c);
+                loadTask(conn, TaskTable.TAG, url);
             }
         }
     }
