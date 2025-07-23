@@ -112,6 +112,7 @@ public class Constants {
                     "GRANT INSERT ON Server.product_tag TO `%1$s`@'%%'",
                     "GRANT INSERT ON Server.product_rank TO `%1$s`@'%%'",
                     "GRANT INSERT ON Server.product TO `%1$s`@'%%'",
+                    "GRANT INSERT ON Server.product_sku TO `%1$s`@'%%'",
                     "GRANT INSERT ON Server.comment TO `%1$s`@'%%'"
                 },
                 DEFAULT_USER_TABLES = {
